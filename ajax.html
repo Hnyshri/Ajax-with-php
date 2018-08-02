@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajax Page</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script>
+        $(document).ready(function(){
+            $("#sub").click(function(){
+                var user_name = $("#name").val();
+                var user_email = $("#email").val();
+                var user_pass = $("#pass").val();
+                // $.post("test.php",{name:user_name,email:user_email,pass:user_pass},function(data){
+                //     $("#result").html(data);
+                // }) or
+                $.ajax({
+                        url:'test.php',
+                        data:{name:user_name,email:user_email,pass:user_pass},
+                        type:'POST',
+                        success:function(data){
+                                $("#result").html(data);
+                                }
+                });                        
+            });
+        });
+    </script>    
+</head>
+<body id="app">
+    <div class="container">
+            <div class="login-form">
+                <h2> Registration </h2>
+                <div class="form-group">                    
+                    <input type="text" class="form-control input-lg" id="name" name="name" placeholder="Name">
+                    <input type="text" class="form-control input-lg" id="email" name="email" placeholder="Email">
+                    <input type="password" class="form-control input-lg" id="pass" name="pass" placeholder="Password">
+                    <input type="submit" class="btn btn-lg btn-default btn-block" id="sub" name='login' value="submit">
+                    <div id="result"></div>
+                </div>
+            </div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
