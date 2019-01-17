@@ -2,14 +2,14 @@
     include("database.php");
     $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
   
-        $admin_name=mysql_real_escape_string($post['name']);
-        $admin_email=mysql_real_escape_string($post['email']);
-        $admin_pass=mysql_real_escape_string($post['pass']);                
-        if (filter_var($admin_email, FILTER_VALIDATE_EMAIL) == true)
+        $admin_name=mysqli_real_escape_string($data,$post['name']); // it is use for escape the special character in string
+        $admin_email=mysqli_real_escape_string($data,$post['email']);
+        $admin_pass=mysqli_real_escape_string($data,$post['pass']);                
+        if (filter_var($admin_email, FILTER_VALIDATE_EMAIL) == true) // filter var use for all validateion and sanitization
         {
             $query = "select * from users where email='$admin_email'";
-            $run=mysql_query($query);
-            if(mysql_num_rows($run)==1)
+            $run=mysqli_query($data,$query);
+            if(mysqli_num_rows($run)==1)
             {   
                 echo "<h2>This email is already Registered, please try another!</h2>";
                 exit();
@@ -17,7 +17,7 @@
             else
             {
                 $insert = " insert into users(name,email,password) values('$admin_name','$admin_email','$admin_pass')";
-                if (mysql_query($insert)) 
+                if (mysqli_query($data,$insert)) 
                 {
                     echo "<h2>Registration Successful, Thanks!</h2>";
                 }
